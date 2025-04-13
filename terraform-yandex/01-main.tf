@@ -28,8 +28,8 @@ provider "yandex" {
 }
 
 
-resource "yandex_compute_disk" "boot-disk-1" {
-  name     = "boot-disk-1"
+resource "yandex_compute_disk" "oleynik-disk" {
+  name     = "oleynik-disk"
   type     = "network-hdd"
   zone     = "ru-central1-a"
   size     = "20"
@@ -45,7 +45,7 @@ resource "yandex_compute_instance" "vm-1" {
   }
 
   boot_disk {
-    disk_id = yandex_compute_disk.boot-disk-1.id
+    disk_id = yandex_compute_disk.oleynik-disk.id
   }
 
   network_interface {
@@ -58,20 +58,20 @@ resource "yandex_compute_instance" "vm-1" {
   }
 }
 
-resource "yandex_vpc_network" "network-1" {
+resource "yandex_vpc_network" "network1" {
   name = "network1"
 }
 
 resource "yandex_vpc_subnet" "subnet-1" {
   name           = "subnet1"
   zone           = "ru-central1-a"
-  network_id     = yandex_vpc_network.network-1.id
+  network_id     = yandex_vpc_network.network1.id
   v4_cidr_blocks = ["192.168.10.0/24"]
 }
 
 resource "yandex_vpc_security_group" "group1" {
   name        = "securuty-group-trfm"
-  network_id  = yandex_vpc_network.network-1.id
+  network_id  = yandex_vpc_network.network1.id
 }
 
 resource "yandex_vpc_security_group_rule" "ssh-rule" {
