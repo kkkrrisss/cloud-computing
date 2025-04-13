@@ -58,26 +58,26 @@ resource "yandex_compute_instance" "vm-1" {
   }
 }
 
-resource "yandex_vpc_network" "existing" {
+data "yandex_vpc_network" "existing" {
   name = "default"
 }
 
 resource "yandex_vpc_subnet" "subnet-1" {
-  name           = "subnet1"
+  name           = "oleynik-subnet"
   zone           = "ru-central1-a"
-  network_id     = yandex_vpc_network.existing.id
+  network_id     = data.yandex_vpc_network.existing.id
   v4_cidr_blocks = ["192.168.10.0/24"]
 }
 
 resource "yandex_vpc_security_group" "group1" {
   name        = "securuty-group-trfm"
-  network_id  = yandex_vpc_network.existing.id
+  network_id  = data.yandex_vpc_network.existing.id
 }
 
 resource "yandex_vpc_security_group_rule" "ssh-rule" {
   security_group_binding = yandex_vpc_security_group.group1.id
   direction              = "ingress"
-  description            = "ssh"
+  description            = "Enable SSH"
   v4_cidr_blocks         = ["0.0.0.0/0"]
   port                   = 22
   protocol               = "TCP"
