@@ -39,8 +39,8 @@
 
 - name: Wait for instance creating
   hosts: localhost
-  connection: local     
-  
+  connection: local
+
   tasks:
     - name: Wait for a ssh port become available
       wait_for:
@@ -77,7 +77,6 @@
         name: acl
         state: present
 
-
     # https://docs.ansible.com/ansible/latest/collections/community/postgresql/postgresql_user_module.html
     - name: Set user password
       become_user: postgres
@@ -111,14 +110,14 @@
           dest: /etc/systemd/system/botserver.service
           mode: '0777'
         become: yes
-    
+
       - name: Reload services
         systemd:
           daemon_reload: true
           name: botserver
           state: stopped
         become: yes
-   
+
       rescue:
        - name: Clean up resources in case of error
          terraform:
