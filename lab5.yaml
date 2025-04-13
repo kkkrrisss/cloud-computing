@@ -50,8 +50,6 @@
 - name: Start production database 
   hosts: tpb-server
   become: yes
-  vars:
-    sql_path: create.sql
   tasks:
     - name: Update apt package cache
       apt:
