@@ -58,20 +58,20 @@ resource "yandex_compute_instance" "vm-1" {
   }
 }
 
-resource "yandex_vpc_network" "network1" {
-  name = "network1"
+resource "yandex_vpc_network" "existing" {
+  name = "default"
 }
 
 resource "yandex_vpc_subnet" "subnet-1" {
   name           = "subnet1"
   zone           = "ru-central1-a"
-  network_id     = yandex_vpc_network.network1.id
+  network_id     = yandex_vpc_network.existing.id
   v4_cidr_blocks = ["192.168.10.0/24"]
 }
 
 resource "yandex_vpc_security_group" "group1" {
   name        = "securuty-group-trfm"
-  network_id  = yandex_vpc_network.network1.id
+  network_id  = yandex_vpc_network.existing.id
 }
 
 resource "yandex_vpc_security_group_rule" "ssh-rule" {
