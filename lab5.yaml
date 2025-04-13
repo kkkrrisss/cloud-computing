@@ -59,6 +59,7 @@
       apt:
         name: postgresql
         state: present
+      become: yes
 
     - name: Install python wrapper for Ansible's PostgreSQL plugin
       apt:
@@ -123,4 +124,5 @@
          terraform:
            project_path: "{{ terraform_path }}"
            state: absent
+           targets: openstack_compute_instance_v2.oleynik_server
          delegate_to: localhost
