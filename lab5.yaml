@@ -22,8 +22,8 @@
 
     - name: Export server IP up
       lineinfile:
-        path: ~/myenv
-        regexp: '^DEV_SERVER_IP='
+        path: ~/server_ip
+        regexp: '^SERVER_IP='
         line: "DEV_SERVER_IP={{ trfrm.outputs.servers.value.serverip }}"
         mode: '0644'
         create: yes
