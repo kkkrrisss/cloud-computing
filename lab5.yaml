@@ -24,7 +24,7 @@
       lineinfile:
         path: ~/server_ip
         regexp: '^SERVER_IP='
-        line: "DEV_SERVER_IP={{ trfrm.outputs.servers.value.serverip }}"
+        line: "SERVER_IP={{ trfrm.outputs.servers.value.serverip }}"
         mode: '0644'
         create: yes
 
