@@ -25,7 +25,7 @@ provider "openstack" {
 
 # https://registry.terraform.io/providers/terraform-provider-openstack/openstack/latest/docs/resources/networking_secgroup_v2
 resource "openstack_networking_secgroup_v2" "sg" {
-  name = "mhq-group-trfm"
+  name = "securuty-group-trfm"
 }
 
 # https://registry.terraform.io/providers/terraform-provider-openstack/openstack/latest/docs/resources/networking_secgroup_rule_v2
@@ -40,8 +40,8 @@ resource "openstack_networking_secgroup_rule_v2" "sg_ssh_rule" {
 }
 
 # https://registry.terraform.io/providers/terraform-provider-openstack/openstack/latest/docs/resources/compute_instance_v2
-resource "openstack_compute_instance_v2" "mhq_server" {
-  name = "mhq-server-trfm"
+resource "openstack_compute_instance_v2" "oleynik_server" {
+  name = "oleynik-server-trfm"
   image_name = var.image_name
   flavor_name = var.server_flavor
   key_pair = var.key_pair
