@@ -3,7 +3,7 @@
   connection: local
   vars:
     terraform_rc_path: .terraformrc
-    terraform_path: ./tf
+    terraform_path: ./terraform-openstack
   tasks:
     - name: Prepare TF (set yandex mirror)
       copy:
@@ -95,7 +95,7 @@
   hosts: tpb-server
   vars:
     service_path: botserver.service
-    terraform_path: tf
+    terraform_path: ./terraform-openstack
   tasks:
     - block:
       - name: Install JDK
