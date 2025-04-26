@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oleynik-bot
+  namespace: oleynik-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oleynik-bot
+  template:
+    metadata:
+      labels:
+        app: oleynik-bot
+    spec:
+      containers:
+      - name: bot
+        image: cr.yandex/crpcojl564cc4biuq8nc/oleynik-bot:latest
+        ports:
+        - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: oleynik-bot-service
+  namespace: oleynik-ns
+spec:
+  type: ClusterIP
+  selector:
+    app: oleynik-bot
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
