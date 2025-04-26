@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oleynik-db
+  namespace: oleynik-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oleynik-db
+  template:
+    metadata:
+      labels:
+        app: oleynik-db
+    spec:
+      containers:
+      - name: postgres
+        image: cr.yandex/crpcojl564cc4biuq8nc/oleynik-db:latest
+        env:
+        - name: POSTGRES_PASSWORD
+          value: "123"
+        - name: POSTGRES_DB
+          value: "trip_planner"
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: db-data
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: db-data
+        emptyDir: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: oleynik-db-service
+  namespace: oleynik-ns
+spec:
+  selector:
+    app: oleynik-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
